@@ -1,0 +1,20 @@
+#MyEclipse Hibernate Properties
+#Thu Jun 11 23:09:21 CST 2015
+genBasicCompId=true
+sessionFactoryName=com.schpost.Dao.HibernateSessionFactory
+profile=
+daoSFId=sessionFactory
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=src/applicationContext.xml
+useJavaTypes=true
+keyGenerator=native
+genVersionTag=false
+sessionFactoryId=sessionFactory
+basePersistenceClass=
+genAnnotations=true
+reSettingsFile=/Schpost/hibernate.reveng.xml
+configFile=/Schpost/src/applicationContext.xml
+createConfigFile=true

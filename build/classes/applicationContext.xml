@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1/schpost">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+			<value>com.schpost.entity.Poster</value>
+			<value>com.schpost.entity.User</value>
+			<value>com.schpost.entity.Orders</value>
+			<value>com.schpost.entity.Admin</value>
+			<value>com.schpost.entity.Contact</value>
+		</list>
+		</property>
+	</bean>
+	<bean id="PosterDAO" class="com.schpost.Dao.PosterDAO">
+	<property name="sessionFactory">
+	<ref bean="sessionFactory" />
+		</property></bean>
+
+	<bean id="UserDAO" class="com.schpost.Dao.UserDAO">
+	<property name="sessionFactory">
+	<ref bean="sessionFactory" />
+		</property></bean>
+	<bean id="OrdersDAO" class="com.schpost.Dao.OrdersDAO">
+	<property name="sessionFactory">
+		<ref bean="sessionFactory" />
+		</property></bean>
+	<bean id="AdminDAO" class="com.schpost.Dao.AdminDAO">
+	<property name="sessionFactory">
+	<ref bean="sessionFactory" />
+		</property></bean>
+	<bean id="ContactDAO" class="com.schpost.Dao.ContactDAO">
+	<property name="sessionFactory">
+	<ref bean="sessionFactory" />
+		</property></bean>
+	<bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- one of the properties available; the maximum file size in bytes -->
+</bean>
+<mvc:annotation-driven />
+	<context:component-scan base-package="com.schpost" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		
+		<property name="prefix" value="/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean id="EvaluationDAO" class="com.schpost.Dao.EvaluationDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>
